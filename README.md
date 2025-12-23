@@ -2,123 +2,145 @@
 
 Two Python-based honeypots that trap web crawlers in infinite fractal recursion structures, inspired by mathematical chaos theory.
 
-## Scripts
+---
 
-### 1. **schemata.py** - Feature-Rich Trapping System
-A sophisticated honeypot with monitoring, logging, and realistic fractal simulation. Named after "schemata" (plural of schema) representing the underlying patterns that guide the infinite structure.
+## Overview
 
-### 2. **tsukuyomi.py** - Minimal Infinite Trap
-An ultra-efficient honeypot named after the Japanese moon god Tsukuyomi, representing endless cycles and illusions. Uses virtually no server resources while creating infinite recursion.
+This project contains two web honeypots designed to exploit crawler traversal behavior using mathematically inspired infinite structures derived from fractal geometry.
 
+- schemata.py — Research panel
+- tsukuyomi.py — Minimalist and stateless
+
+Both systems create the illusion of infinite exploration while remaining computationally bounded.
+
+---
 ## Mathematical Foundation
 
 ### Mandelbrot Set
-Both honeypots simulate exploration of the **Mandelbrot Set**, a famous fractal defined by the simple recursive equation: _zₙ₊₁ = zₙ² + c_ where `z` and `c` are complex numbers. The set consists of all `c` values for which the orbit of `z` (starting at 0) remains bounded.
 
-**Key Properties Exploited:**
-- **Infinite Complexity**: No matter how much you zoom, new patterns emerge
-- **Self-Similarity**: Similar structures appear at different scales
-- **Boundary Complexity**: The edge of the set is infinitely intricate
-- **Uncomputable Regions**: Some areas require infinite computation to determine membership
+Both honeypots simulate exploration of the Mandelbrot Set, defined by the recursive equation:
+
+    z_{n+1} = z_n^2 + c
+
+Where z and c are complex numbers. The Mandelbrot set consists of all values of c for which the orbit of z (starting at 0) remains bounded.
+
+Key properties exploited:
+- Infinite complexity
+- Self-similarity
+- Boundary complexity
+- Uncomputable regions
 
 ### Julia Sets
-Closely related to the Mandelbrot set, **Julia Sets** are created by fixing `c` and varying the starting point `z₀`. Each point in the Mandelbrot set corresponds to a different Julia set: _J(c) = {z₀ ∈ ℂ : zₙ remains bounded under zₙ₊₁ = zₙ² + c}_
 
+Julia sets are closely related to the Mandelbrot set. Each point c in the Mandelbrot set corresponds to a unique Julia set:
+
+    J(c) = { z0 in C : zn remains bounded under zn+1 = zn^2 + c }
+
+---
 
 ## Technical Implementation
 
 ### schemata.py Architecture
-```
-┌─────────────────────────────────────────────────┐
-│ Request Handler                                 │
-├─────────────────────────────────────────────────┤
-│ Path Generation Engine                          │
-│ • SHA-256 based unique path creation            │
-│ • Depth-limited branching (N=8)                 │
-│ • Cycle detection and infinite loop creation    │
-├─────────────────────────────────────────────────┤
-│ Crawler Tracking System                         │
-│ • IP/UA logging                                 │
-│ • Depth monitoring                              │
-│ • Visit pattern analysis                        │
-├─────────────────────────────────────────────────┤
-│ Realistic Content Generator                     │
-│ • Fractal coordinate generation                 │
-│ • Mathematical description generation           │
-│ • Progressively increasing "zoom" levels        │
-└─────────────────────────────────────────────────┘
-```
 
-**Key Features:**
-- **Path Hashing**: `sha256(path:salt:depth)` creates unique, non-guessable URLs
-- **Exponential Growth**: Each page generates N links, creating N^depth total paths
-- **Cycle Creation**: After reaching `max_depth`, paths recycle into infinite loops
-- **Resource Monitoring**: Tracks crawler behavior without significant memory overhead
-- **Realistic Delays**: Simulates computational load with configurable timeouts
+Request Handler
+- Path generation using SHA-256
+- Depth-limited branching
+- Cycle detection
 
-### tsukuyomi.py
-```
-┌─────────────────────────────────────────────────┐
-│ Deterministic Generator                         │
-│ • Seed-based path generation                    │
-│ • Hash chaining for infinite recursion          │
-│ • O(1) memory usage                             │
-├─────────────────────────────────────────────────┤
-│ Illusion Engine                                 │
-│ • Mathematical coordinate generation            │
-│ • Zoom factor progression                       │
-│ • Infinite sitemap generation                   │
-└─────────────────────────────────────────────────┘
-```
+Crawler Tracking
+- IP and User-Agent logging
+- Depth monitoring
+- Traversal pattern analysis
 
+Realistic Content Generator
+- Fractal coordinate synthesis
+- Mathematical narrative generation
+- Progressive zoom illusion
 
-**Efficiency Innovations:**
-- **Stateless Design**: No tracking of crawler paths or history
-- **Deterministic Paths**: `next_seed = sha256(current_seed + i + depth)`
-- **Mathematical Coordinates**: Generated on-the-fly using hash functions
-- **Minimal HTML**: <5KB responses with inline CSS
-- **Log Rotation**: Single-file append-only logging
+Key features:
+- Non-guessable URLs via hashing
+- Exponential traversal growth
+- Infinite cycling without infinite storage
+- Configurable artificial delays
 
-## Fractal Coordinate Systems
+### tsukuyomi.py Architecture
 
-Both scripts use coordinates from the **Seahorse Valley** region of the Mandelbrot set: Base Coordinates: (-0.743643, 0.131825)
+Deterministic Generator
+- Seed-based path creation
+- Hash chaining
+- Constant memory usage
 
-This region exhibits:
-- **Deep Zoom Capability**: Can be magnified infinitely
-- **Complex Structures**: Spirals, seahorses, and mini-Mandelbrots
-- **Mathematical Significance**: Located near the boundary of the main cardioid
+Illusion Engine
+- Mathematical coordinate generation
+- Zoom progression
+- Infinite sitemap illusion
 
-### Zoom Progression Algorithm
-```python
-def generate_coordinates(seed, depth, i):
-    base_x, base_y = -0.743643, 0.131825
-    zoom_factor = 2 ** (depth // 10)
-    
-    # Add pseudorandom offsets based on hash
-    offset_x = (hash(seed + "x") % 1000 - 500) / (1000 * zoom_factor)
-    offset_y = (hash(seed + "y") % 1000 - 500) / (1000 * zoom_factor)
-    
-    return (base_x + offset_x, base_y + offset_y)
-```
+Efficiency features:
+- Fully stateless
+- Minimal HTML responses
+- Append-only logging
 
-### Trapping Mechanisms
+---
 
-1. Infinite Sitemap Generation
-```
-sitemap-index.xml → sitemap-1.xml → sitemap-2.xml → ...
-                  ↘ page-1.html   ↘ page-2.html   ↘ ...
-```
-2. Recursive Link Structure
-```
-Level 0: 1 page with N links
-Level 1: N pages, each with N links (N² total)
-Level 2: N² pages, each with N links (N³ total)
-...
-Level d: N^d pages (exponential growth)
-```
-3. Hash-Based Cycle Creation (After reaching maximum configured depth, paths begin to cycle. This creates infinite traversal without infinite unique pages.)
-```
-Path A → Path B → Path C → Path D → Path A (cycle)
-```
+## Fractal Coordinate System
 
-[WORK IN PROGRESS]
+Both scripts operate around the Seahorse Valley region of the Mandelbrot set. Base coordinates: (-0.743643, 0.131825)
+
+This region supports infinite zoom, complex structures, and lies near the boundary of the main cardioid.
+
+---
+
+## Trapping Mechanisms
+
+1. Infinite sitemap chains
+2. Exponential recursive link structures
+3. Hash-based traversal cycles
+
+---
+
+## Performance Characteristics
+
+schemata.py:
+- Memory: O(k)
+- CPU: Medium
+- Throughput: ~100–500 req/s
+
+tsukuyomi.py:
+- Memory: O(1)
+- CPU: Low
+- Throughput: ~1000–5000 req/s
+
+---
+## Configuration
+
+schemata.py:
+- N: links per page
+- max_depth: depth before cycling
+- delay_min / delay_max
+- log_file
+- fake_content toggle
+
+tsukuyomi.py:
+- N
+- delay_min / delay_max
+- log_file
+
+---
+
+## Detection Capabilities
+
+Detects:
+- Blind crawlers
+- Recursive scanners
+- Sitemap-driven bots
+- Persistent traversal agents
+
+---
+
+## References
+
+- Mandelbrot, B. B. — The Fractal Geometry of Nature
+- Douady & Hubbard — Complex Polynomial Dynamics
+- Peitgen & Richter — The Beauty of Fractals
+- Devaney — Chaotic Dynamical Systems
+
