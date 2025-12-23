@@ -1,3 +1,5 @@
+[WORK IN PROGRESS]
+
 # Fractal Web Honeypot Collection
 
 Two Python-based honeypots that trap web crawlers in infinite fractal recursion structures, inspired by mathematical chaos theory.
